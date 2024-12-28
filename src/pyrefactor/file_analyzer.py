@@ -41,7 +41,7 @@ class ProjectAnalyzer:
                 results[str(filepath)] = FileAnalysis(filepath=filepath, issues=issues)
 
             except Exception as e:
-                results[str(filepath)] = FileAnalysis(filepath=filepath, issues=[], error=str(e))
+                results[str(filepath)] = FileAnalysis(filepath=filepath, issues=[], error=f"{type(e).__name__}: {str(e)}")
 
         return results
 
