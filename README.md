@@ -14,11 +14,20 @@ A Python code refactoring and optimization assistant that analyzes codebases, id
 - ⚡ Performance optimization recommendations
 - 🧪 Automatic unit test generation
 
-## Run
+## Build the Package
 
 ```bash
 python setup.py sdist bdist_wheel
-# Then:
+```
+
+This will:
+
+* Create a source distribution (in the `dist/` directory).
+* Build a wheel (also in `dist/`).
+
+# Run
+
+```sh
 cd src
 python example.py
 ```
