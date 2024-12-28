@@ -1,6 +1,6 @@
 # smart-code-optimizer
 
-An AI-powered Python code refactoring and optimization assistant that analyzes codebases, identifies inefficiencies, and suggests improvements.
+An Python code refactoring and optimization assistant that analyzes codebases, identifies inefficiencies, and suggests improvements.
 
 ## Features
 

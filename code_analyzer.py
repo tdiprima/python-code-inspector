@@ -1,11 +1,6 @@
 import ast
-import astroid
-import pylint.lint
-import radon.complexity
-import typing
 from dataclasses import dataclass
-from pathlib import Path
-import inspect
+
 
 @dataclass
 class CodeIssue:
@@ -17,9 +12,10 @@ class CodeIssue:
     original_code: str
     optimized_code: str = None
 
+
 class CodeAnalyzer:
     """Main class for analyzing and refactoring Python code."""
-    
+
     def __init__(self, source_code: str):
         self.source_code = source_code
         self.ast_tree = ast.parse(source_code)
@@ -36,7 +32,7 @@ class CodeAnalyzer:
         """Analyze cyclomatic complexity of the code."""
         visitor = ComplexityVisitor()
         visitor.visit(self.ast_tree)
-        
+
         for func_node, complexity in visitor.complexities.items():
             if complexity > 10:  # McCabe complexity threshold
                 self.issues.append(CodeIssue(
@@ -51,7 +47,7 @@ class CodeAnalyzer:
         """Detect common code smells."""
         visitor = CodeSmellVisitor()
         visitor.visit(self.ast_tree)
-        
+
         for issue in visitor.issues:
             self.issues.append(issue)
 
@@ -59,7 +55,7 @@ class CodeAnalyzer:
         """Identify potential optimization opportunities."""
         visitor = OptimizationVisitor()
         visitor.visit(self.ast_tree)
-        
+
         for issue in visitor.issues:
             self.issues.append(issue)
 
@@ -67,7 +63,7 @@ class CodeAnalyzer:
         """Extract source code for a given AST node."""
         lines = self.source_code.splitlines()
         if hasattr(node, 'lineno') and hasattr(node, 'end_lineno'):
-            return '\n'.join(lines[node.lineno-1:node.end_lineno])
+            return '\n'.join(lines[node.lineno - 1:node.end_lineno])
         return ""
 
     def generate_unit_tests(self, module_name: str) -> str:
@@ -75,9 +71,10 @@ class CodeAnalyzer:
         test_generator = UnitTestGenerator(self.ast_tree, module_name)
         return test_generator.generate_tests()
 
+
 class ComplexityVisitor(ast.NodeVisitor):
     """AST visitor to calculate cyclomatic complexity."""
-    
+
     def __init__(self):
         self.complexities = {}
         self.current_complexity = 0
@@ -85,10 +82,10 @@ class ComplexityVisitor(ast.NodeVisitor):
     def visit_FunctionDef(self, node):
         previous_complexity = self.current_complexity
         self.current_complexity = 1  # Base complexity
-        
+
         # Visit all children
         self.generic_visit(node)
-        
+
         self.complexities[node] = self.current_complexity
         self.current_complexity = previous_complexity
 
@@ -104,9 +101,10 @@ class ComplexityVisitor(ast.NodeVisitor):
         self.current_complexity += 1
         self.generic_visit(node)
 
+
 class CodeSmellVisitor(ast.NodeVisitor):
     """AST visitor to detect code smells."""
-    
+
     def __init__(self):
         self.issues = []
         self.loop_depth = 0
@@ -124,16 +122,17 @@ class CodeSmellVisitor(ast.NodeVisitor):
         self.generic_visit(node)
         self.loop_depth -= 1
 
+
 class OptimizationVisitor(ast.NodeVisitor):
     """AST visitor to identify optimization opportunities."""
-    
+
     def __init__(self):
         self.issues = []
 
     def visit_For(self, node):
         # Check for list comprehension opportunities
         if isinstance(node.body, list) and len(node.body) == 1:
-            if (isinstance(node.body[0], ast.Expr) and 
+            if (isinstance(node.body[0], ast.Expr) and
                 isinstance(node.body[0].value, ast.Call) and
                 isinstance(node.body[0].value.func, ast.Attribute) and
                 node.body[0].value.func.attr == 'append'):
@@ -154,9 +153,10 @@ class OptimizationVisitor(ast.NodeVisitor):
         body_expr = ast.unparse(node.body[0].value)
         return f"[{body_expr} for {target} in {iter_expr}]"
 
+
 class UnitTestGenerator:
     """Generate unit tests for Python code."""
-    
+
     def __init__(self, ast_tree: ast.AST, module_name: str):
         self.ast_tree = ast_tree
         self.module_name = module_name
@@ -166,24 +166,24 @@ class UnitTestGenerator:
         """Generate unit test code."""
         visitor = TestCaseVisitor()
         visitor.visit(self.ast_tree)
-        
+
         test_code = [
             "import unittest",
             f"import {self.module_name}",
             "",
             f"class Test{self.module_name.capitalize()}(unittest.TestCase):",
         ]
-        
+
         for func_node in visitor.functions:
             test_code.extend(self._generate_test_for_function(func_node))
-        
+
         return "\n".join(test_code)
 
     def _generate_test_for_function(self, func_node: ast.FunctionDef) -> list[str]:
         """Generate test cases for a single function."""
         params = [p.arg for p in func_node.args.args]
         test_name = f"test_{func_node.name}"
-        
+
         return [
             f"    def {test_name}(self):",
             "        # TODO: Add appropriate test cases",
@@ -191,9 +191,10 @@ class UnitTestGenerator:
             "        self.assertIsNotNone(result)"
         ]
 
+
 class TestCaseVisitor(ast.NodeVisitor):
     """Collect information about functions for test generation."""
-    
+
     def __init__(self):
         self.functions = []
 
@@ -201,10 +202,12 @@ class TestCaseVisitor(ast.NodeVisitor):
         self.functions.append(node)
         self.generic_visit(node)
 
+
 def analyze_code(source_code: str) -> list[CodeIssue]:
     """Main entry point for code analysis."""
     analyzer = CodeAnalyzer(source_code)
     return analyzer.analyze()
+
 
 def generate_tests(source_code: str, module_name: str) -> str:
     """Generate unit tests for the given source code."""

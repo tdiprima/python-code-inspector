@@ -1,4 +1,5 @@
-from pyrefactor_ai import *
+# Example usage of the code analyzer and test generator
+from code_analyzer import *
 
 # Example usage
 source_code = """
