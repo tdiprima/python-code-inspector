@@ -1,4 +1,4 @@
-# smart-code-optimizer
+# Python Code Inspector
 
 A Python code refactoring and optimization assistant that analyzes codebases, identifies inefficiencies, and suggests improvements.
 
