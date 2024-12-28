@@ -9,7 +9,7 @@ A refactoring and optimization assistant that analyzes codebases, identifies ine
 ## Code Quality Checks
 
 - **Complexity Analysis**
-  - Cyclomatic complexity of functions
+  - Functions with too many decision paths (if statements, loops, etc.)
   - Deeply nested code blocks
   - Complex conditional statements
 
@@ -34,6 +34,7 @@ pip install -r requirements.txt
 See examples in the `examples` folder.
 
 The generated report will include:
+
 - File-by-file analysis
 - Line numbers for issues
 - Description of problems
