@@ -28,8 +28,13 @@ This will:
 # Run
 
 ```sh
-cd src
-python example.py
+python examples/basic_usage.py
+```
+
+# Tests
+
+```sh
+pytest tests/
 ```
 
 <br>
