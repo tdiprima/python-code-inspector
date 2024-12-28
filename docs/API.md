@@ -21,7 +21,7 @@ Analyzes Python source code for potential improvements and issues.
 **Example:**
 
 ```python
-from pyrefactor_ai import analyze_code
+from pyrefactor import analyze_code
 
 source_code = """
 def calculate_sum(numbers):
@@ -56,7 +56,7 @@ Generates unit tests for the provided source code.
 **Example:**
 
 ```python
-from pyrefactor_ai import generate_tests
+from pyrefactor import generate_tests
 
 tests = generate_tests(source_code, "my_module")
 print(tests)
