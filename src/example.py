@@ -1,5 +1,5 @@
 # Example usage of the code analyzer and test generator
-from my_module.code_analyzer import *
+from pyrefactor.code_analyzer import *
 
 # Sample source code to analyze
 source_code = """

@@ -13,6 +13,9 @@ A Python code refactoring and optimization assistant that analyzes codebases, id
 ## Run
 
 ```bash
+python setup.py sdist bdist_wheel
+# Then:
+cd src
 python example.py
 ```
 
