@@ -1,8 +1,9 @@
 import ast
 from typing import List
+
+from .generators import UnitTestGenerator
 from .models import CodeIssue
 from .visitors import ComplexityVisitor, CodeSmellVisitor, OptimizationVisitor
-from .generators import UnitTestGenerator
 
 
 class CodeAnalyzer:
