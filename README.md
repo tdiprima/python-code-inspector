@@ -1,5 +1,9 @@
 # Python Code Inspector
 
+![License](https://img.shields.io/github/license/tdiprima/GroqLab-AI)
+![Languages](https://img.shields.io/github/languages/top/tdiprima/GroqLab-AI)
+![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen)
+
 A Python code refactoring and optimization assistant that analyzes codebases, identifies inefficiencies, and suggests improvements.
 
 ## Features
