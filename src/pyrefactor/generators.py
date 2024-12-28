@@ -12,9 +12,9 @@ class UnitTestGenerator:
 
     def generate_tests(self) -> str:
         """Generate unit test code."""
-        from .visitors import TestCaseVisitor
+        from .visitors import CaseVisitor
 
-        visitor = TestCaseVisitor()
+        visitor = CaseVisitor()
         visitor.visit(self.ast_tree)
 
         test_code = [

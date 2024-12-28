@@ -11,7 +11,7 @@ from pyrefactor.visitors import (
     ComplexityVisitor,
     CodeSmellVisitor,
     OptimizationVisitor,
-    TestCaseVisitor
+    CaseVisitor
 )
 
 
@@ -81,7 +81,7 @@ def func2(x, y):
     return x + y
 """
     tree = ast.parse(source)
-    visitor = TestCaseVisitor()
+    visitor = CaseVisitor()
     visitor.visit(tree)
 
     function_names = [node.name for node in visitor.functions]

@@ -21,7 +21,23 @@ class ComplexityVisitor(ast.NodeVisitor):
         self.current_complexity = previous_complexity
 
     def visit_If(self, node):
+        # Count the initial 'if'
         self.current_complexity += 1
+        
+        # Count elif branches
+        current = node
+        while (isinstance(current.orelse, list) and 
+            len(current.orelse) == 1 and 
+            isinstance(current.orelse[0], ast.If)):
+            # Each elif branch adds to complexity
+            self.current_complexity += 1
+            current = current.orelse[0]
+        
+        # Count the final else branch if it exists (non-empty orelse)
+        if current.orelse and not (len(current.orelse) == 1 and isinstance(current.orelse[0], ast.If)):
+            self.current_complexity += 1
+        
+        # Visit all child nodes to handle nested conditions
         self.generic_visit(node)
 
     def visit_While(self, node):
@@ -29,6 +45,17 @@ class ComplexityVisitor(ast.NodeVisitor):
         self.generic_visit(node)
 
     def visit_For(self, node):
+        self.current_complexity += 1
+        self.generic_visit(node)
+
+    def visit_Return(self, node):
+        self.generic_visit(node)
+
+    def visit_Break(self, node):
+        self.current_complexity += 1
+        self.generic_visit(node)
+
+    def visit_Continue(self, node):
         self.current_complexity += 1
         self.generic_visit(node)
 
@@ -85,7 +112,7 @@ class OptimizationVisitor(ast.NodeVisitor):
         return f"[{body_expr} for {target} in {iter_expr}]"
 
 
-class TestCaseVisitor(ast.NodeVisitor):
+class CaseVisitor(ast.NodeVisitor):
     """Collect information about functions for test generation."""
 
     def __init__(self):

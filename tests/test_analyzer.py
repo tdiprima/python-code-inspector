@@ -66,7 +66,11 @@ def complex_function(x):
     issues = analyze_code(source_code)
     complexity_issues = [i for i in issues if i.issue_type == "high_complexity"]
 
-    assert len(complexity_issues) > 0
+    # Debug: print issues to verify detection
+    for issue in complexity_issues:
+        print(f"Issue: {issue.description}, Line: {issue.line_number}")
+
+    assert len(complexity_issues) > 0, "No complexity issues detected. Verify the threshold and logic."
     assert "complexity" in complexity_issues[0].description.lower()
 
 
