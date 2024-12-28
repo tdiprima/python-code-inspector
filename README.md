@@ -4,15 +4,24 @@
 ![Languages](https://img.shields.io/github/languages/top/tdiprima/GroqLab-AI)
 ![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen)
 
-A Python code refactoring and optimization assistant that analyzes codebases, identifies inefficiencies, and suggests improvements.
+A refactoring and optimization assistant that analyzes codebases, identifies inefficiencies, and suggests improvements.
 
-## Features
+## Code Quality Checks
 
-- 🔍 Static code analysis for common inefficiencies
-- 🤖 AI-driven code refactoring suggestions
-- 🦨 Code smell detection
-- ⚡ Performance optimization recommendations
-- 🧪 Automatic unit test generation
+- **Complexity Analysis**
+  - Cyclomatic complexity of functions
+  - Deeply nested code blocks
+  - Complex conditional statements
+
+- **Code Smells**
+  - Nested loops beyond 2 levels
+  - Long functions
+  - Redundant code patterns
+
+- **Optimization Opportunities**
+  - List comprehension suggestions
+  - Loop optimizations
+  - Data structure improvements
 
 ## Installation
 
@@ -22,25 +31,14 @@ pip install -r requirements.txt
 
 ## Quick Start
 
-```python
-from pyrefactor import analyze_code, generate_tests
+See examples in the `examples` folder.
 
-# Analyze your code
-source_code = """
-def calculate_sum(numbers):
-    total = 0
-    for num in numbers:
-        total += num
-    return total
-"""
-
-issues = analyze_code(source_code)
-for issue in issues:
-    print(f"Line {issue.line_number}: {issue.description}")
-
-# Generate unit tests
-tests = generate_tests(source_code, "my_module")
-```
+The generated report will include:
+- File-by-file analysis
+- Line numbers for issues
+- Description of problems
+- Suggested improvements
+- Optimized code snippets when available
 
 ## Requirements
 
