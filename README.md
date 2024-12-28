@@ -14,27 +14,48 @@ A Python code refactoring and optimization assistant that analyzes codebases, id
 - ⚡ Performance optimization recommendations
 - 🧪 Automatic unit test generation
 
-## Build the Package
+## Installation
 
 ```bash
-python setup.py sdist bdist_wheel
+pip install -r requirements.txt
 ```
 
-This will:
+## Quick Start
 
-* Create a source distribution (in the `dist/` directory).
-* Build a wheel (also in `dist/`).
+```python
+from pyrefactor import analyze_code, generate_tests
 
-# Run
+# Analyze your code
+source_code = """
+def calculate_sum(numbers):
+    total = 0
+    for num in numbers:
+        total += num
+    return total
+"""
 
-```sh
-python examples/basic_usage.py
+issues = analyze_code(source_code)
+for issue in issues:
+    print(f"Line {issue.line_number}: {issue.description}")
+
+# Generate unit tests
+tests = generate_tests(source_code, "my_module")
 ```
 
-# Tests
+## Requirements
 
-```sh
-pytest tests/
-```
+- Python 3.8+
+- ast (standard library)
+- astroid
+- pylint
+- radon
+
+## Contributing
+
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines on how to contribute to this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 <br>
