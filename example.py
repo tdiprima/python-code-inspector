@@ -1,5 +1,5 @@
 # Example usage of the code analyzer and test generator
-from code_analyzer import *
+from my_module.code_analyzer import *
 
 # Sample source code to analyze
 source_code = """
@@ -23,7 +23,7 @@ else:
 
 # Generate unit tests
 print("Generating unit tests...\n")
-module_name = "my_module"  # Replace with your actual module name
+module_name = "my_module"
 tests = generate_tests(source_code, module_name)
 
 # Output the generated tests
